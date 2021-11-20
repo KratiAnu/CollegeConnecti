@@ -1,4 +1,4 @@
-# Flask Web App Tutorial
+# CollegeConnect - A oneStop Solution to connect collegemates 
 
 ## Setup & Installtion
 
