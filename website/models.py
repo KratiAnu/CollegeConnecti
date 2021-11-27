@@ -14,6 +14,9 @@ class Note(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
+    def __repr__(self):
+        return '<Note %r>' % (self.body)
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,3 +43,9 @@ class User(db.Model, UserMixin):
     def is_following(self, user):
         return self.followed.filter(
             followers.c.followed_id == user.id).count() > 0
+
+    def followed_posts(self):
+        return Note.query.join(
+            followers, (followers.c.followed_id == Note.user_id)).filter(
+                followers.c.follower_id == self.id).order_by(
+                    Note.timestamp.desc())

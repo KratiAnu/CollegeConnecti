@@ -31,15 +31,11 @@
 </body>
 
 
+    <div class="user-title" align="center">
+      <p><h1 align="center">{{ user.first_name }}</h1></p>
+    </div>
 
-    <table>
-        <tr valign="top">
-            <td><h1>User: {{ user.first_name }}</h1></td>
-            <td></td>
-
-        </tr>
-    </table>
-    <p><h2>About: {{ user.about }}</h2></p>
+    <p><h2 align="center">{{ user.about }}</h2></p>
     <div class="col-md-6 ml-auto mr-auto">
       <div class="profile-tabs">
         <ul class="nav nav-pills nav-pills-icons justify-content-center" role="tablist">
@@ -59,16 +55,29 @@
       </div>
 </div>
 </div>
+<div class="followers" align="center">
     <p><button>Contact</button></p>
-    <hr>
+                <p>{{ user.followers.count() }} followers | 
+                {% if user.id == current_user.id %}
+                    <a href="{{ url_for('views.getUser', email=user.email) }}">My profile</a>
+                {% elif not current_user.is_following(user) %}
+                    <a href="{{ url_for('follow', email=user.email) }}">Follow</a>
+                {% else %}
+                    <a href="{{ url_for('unfollow', email=user.email) }}">Unfollow</a>
+                {% endif %}
+</div>
+
+  <div class="my-notes" align="center">
     <ul class="list-group list-group-flush" id="notes">
+      <h3>My Posts</h3>
         {% for note in user.notes %}
         <li class="list-group-item">
-          {{ note.data }}
+          <h4 align="center">{{ note.data }}</h4>
           <button type="button" class="close" onClick="deleteNote({{ note.id }})">
             <span aria-hidden="true">&times;</span>
           </button>
         </li>
         {% endfor %}
       </ul>
+  </div>
 {% endblock %}

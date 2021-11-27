@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, flash, jsonify
-from flask_login import login_required, current_user
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, session, url_for, g
+from flask_login import login_user, logout_user, current_user, login_required
 #from app.forms import EditProfileForm
 from .models import Note
 from .models import User
@@ -38,12 +38,44 @@ def delete_note():
 
     return jsonify({})
 
-#added
+#
 
 @views.route('/user/<email>', methods=['GET', 'POST'])
 @login_required
 def getUser(email):
     return render_template("user.html", user=current_user, email=email)
+
+
+@views.route('/follow/<email>')
+def follow(email):
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        flash('User ' + email + ' not found.')
+        return redirect(url_for('home'))
+    u = current_user.follow(user)
+    if u is None:
+        flash('Cannot follow ' + email + '.')
+        return redirect(url_for('user', email=email))
+    db.session.add(u)
+    db.session.commit()
+    flash('You are now following ' + email + '!')
+    return redirect(url_for('user', email=email))
+
+
+@views.route('/unfollow/<email>')
+def unfollow(email):
+    user = User.query.filter_by(email=email).first()
+    if user is None:
+        flash('User ' + email + ' not found.')
+        return redirect(url_for('home'))
+    u = current_user.unfollow(user)
+    if u is None:
+        flash('Cannot unfollow ' + email + '.')
+        return redirect(url_for('user', email=email))
+    db.session.add(u)
+    db.session.commit()
+    flash('You have stopped following ' + email + '.')
+    return redirect(url_for('user', email=email))
 
 
 @views.route('/faq')
