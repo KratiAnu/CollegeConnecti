@@ -47,4 +47,6 @@ Go to `http://127.0.0.1:5000`
 
 ![alt text](https://github.com/KratiAnu/CollegeConnecti/blob/master/faq_page.jpeg)
 
+Here, a chatbot is created using dialogflow to answer all the general queries related to college.
+
 
