@@ -1,6 +1,13 @@
 {% extends "base.html" %} {% block title %}Frequently Asked Questions{% endblock %} {% block content
     %}
     <h1 align="center">FAQ</h1>
+    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+    <df-messenger
+        intent="WELCOME"
+        chat-title="FAQBot"
+        agent-id="f2475464-f1bd-4a12-b914-c26afd16f364"
+        language-code="en"
+    ></df-messenger>
 
     <p>
       <h2>Q. How much CGPA is required for good placements?</h2>
