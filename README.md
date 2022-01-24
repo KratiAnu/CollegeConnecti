@@ -17,6 +17,12 @@ git clone <repo-url>
 ```bash
 pip install -r requirements.txt
 ```
+## TechStack
+
+- Flask
+- Python
+- HTML, CSS
+- Dialogflow
 
 ## Running The App
 
