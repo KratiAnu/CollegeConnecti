@@ -4,7 +4,7 @@ The project is made using flask as the backend for the Microsoft Engage 2021.
 
 # Problem Statement
 
-College is a place where connections matters the most. Thus, if we need a platform where we can bring seniors and juniors together and let them share their ordeals with one another.
+College is a place where connections matters the most. Thus, we need a platform where we can bring seniors and juniors together and let them share their ordeals with one another.
 
 ## Setup & Installtion
 
